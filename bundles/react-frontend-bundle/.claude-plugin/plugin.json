@@ -6,10 +6,8 @@
     "name": "karchtho",
     "email": "kitadevturtle@gmail.com"
   },
-  "components": {
-    "skills": [
-      "skills/react-patterns",
-      "skills/ui-ux-design"
-    ]
-  }
+  "skills": [
+    "skills/react-patterns",
+    "skills/ui-ux-design"
+  ]
 }

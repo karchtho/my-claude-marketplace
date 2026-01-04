@@ -1,0 +1,12 @@
+{
+  "name": "dev-toolkit-bundle",
+  "version": "1.0.0",
+  "description": "Development toolkit for creating Claude Code plugins and bundles with comprehensive bundle-making capabilities, utility scripts, and example templates",
+  "author": {
+    "name": "karchtho",
+    "email": "kitadevturtle@gmail.com"
+  },
+  "skills": [
+    "./skills/bundle-maker"
+  ]
+}

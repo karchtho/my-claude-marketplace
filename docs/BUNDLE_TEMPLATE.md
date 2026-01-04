@@ -40,10 +40,6 @@ mkdir -p ~/projects/my-claude-skills/bundles/<bundle-name>/{.claude-plugin,skill
     "mcp": [
       "mcp/<mcp-server-name>"
     ]
-  },
-  "metadata": {
-    "tags": ["tag1", "tag2", "tag3"],
-    "category": "<category-name>"
   }
 }
 ```

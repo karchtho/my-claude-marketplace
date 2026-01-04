@@ -1,0 +1,12 @@
+{
+  "name": "minimal-example-bundle",
+  "version": "1.0.0",
+  "description": "Minimal example bundle with a single skill",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "skills": [
+    "./skills/example-skill"
+  ]
+}

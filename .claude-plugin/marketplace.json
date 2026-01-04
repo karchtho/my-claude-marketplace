@@ -10,6 +10,11 @@
       "name": "react-frontend-bundle",
       "source": "./bundles/react-frontend-bundle",
       "description": "Complete React development toolkit: React patterns + UI/UX design skills"
+    },
+    {
+      "name": "dev-toolkit-bundle",
+      "source": "./bundles/dev-toolkit-bundle",
+      "description": "Development toolkit for creating Claude Code plugins and bundles with comprehensive bundle-making capabilities"
     }
   ]
 }

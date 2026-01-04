@@ -11,9 +11,5 @@
       "skills/react-patterns",
       "skills/ui-ux-design"
     ]
-  },
-  "metadata": {
-    "tags": ["react", "frontend", "ui-ux", "design"],
-    "category": "frontend-development"
   }
 }

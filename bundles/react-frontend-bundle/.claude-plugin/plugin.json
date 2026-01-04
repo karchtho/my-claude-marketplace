@@ -1,0 +1,16 @@
+{
+  "name": "react-frontend-bundle",
+  "version": "1.0.0",
+  "description": "Complete React development toolkit with UI/UX design principles",
+  "author": "karchto",
+  "components": {
+    "skills": [
+      "skills/react-patterns",
+      "skills/ui-ux-design"
+    ]
+  },
+  "metadata": {
+    "tags": ["react", "frontend", "ui-ux", "design"],
+    "category": "frontend-development"
+  }
+}

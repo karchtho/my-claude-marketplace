@@ -1,0 +1,32 @@
+{
+  "name": "my-claude-skills",
+  "owner": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "description": "Personal skill marketplace for context-based development (React, Angular, Unity, etc.)",
+  "plugins": [
+    {
+      "name": "react-frontend-bundle",
+      "source": "./bundles/react-frontend-bundle",
+      "description": "Complete React development toolkit: React patterns + UI/UX design skills"
+    }
+
+    // Ready to add more bundles:
+    // {
+    //   "name": "angular-frontend-bundle",
+    //   "source": "./bundles/angular-frontend-bundle",
+    //   "description": "Complete Angular development toolkit"
+    // },
+    // {
+    //   "name": "unity-gamedev-bundle",
+    //   "source": "./bundles/unity-gamedev-bundle",
+    //   "description": "Unity game development toolkit"
+    // },
+    // {
+    //   "name": "core-workflow",
+    //   "source": "./bundles/core-workflow",
+    //   "description": "Universal tools: Git, code review, project management (always active)"
+    // }
+  ]
+}

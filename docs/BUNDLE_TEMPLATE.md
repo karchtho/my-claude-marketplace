@@ -23,7 +23,10 @@ mkdir -p ~/projects/my-claude-skills/bundles/<bundle-name>/{.claude-plugin,skill
   "name": "<bundle-name>",
   "version": "1.0.0",
   "description": "<Short description of what this bundle provides>",
-  "author": "karchto",
+  "author": {
+    "name": "karchtho",
+    "email": "kitadevturtle@gmail.com"
+  },
   "components": {
     "skills": [
       "skills/<skill-name>"

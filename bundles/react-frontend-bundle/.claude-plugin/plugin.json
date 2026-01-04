@@ -2,7 +2,10 @@
   "name": "react-frontend-bundle",
   "version": "1.0.0",
   "description": "Complete React development toolkit with UI/UX design principles",
-  "author": "karchto",
+  "author": {
+    "name": "karchtho",
+    "email": "kitadevturtle@gmail.com"
+  },
   "components": {
     "skills": [
       "skills/react-patterns",

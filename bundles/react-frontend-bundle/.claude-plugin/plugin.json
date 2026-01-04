@@ -7,7 +7,7 @@
     "email": "kitadevturtle@gmail.com"
   },
   "skills": [
-    "../skills/react-patterns",
-    "../skills/ui-ux-design"
+    "./skills/react-patterns",
+    "./skills/ui-ux-design"
   ]
 }

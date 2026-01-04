@@ -10,6 +10,16 @@ Your personal skill marketplace for context-based development. Switch between Re
 - React patterns skill (hooks, components, Zustand, Redux Toolkit, Jotai)
 - UI/UX design skill (design systems, accessibility, responsive design)
 
+### Dev Toolkit Bundle ⭐ **NEW**
+**Status:** ✅ Ready
+**Contains:**
+- **bundle-maker skill** - Automates bundle creation with no placeholders
+- **Utility scripts:** create-bundle.sh, add-skill-to-bundle.sh, validate-bundle.sh
+- **Example bundles:** Working templates for minimal and complete bundles
+- **Comprehensive guide:** Detailed skill creation methodology
+
+**Install:** `/plugin install dev-toolkit-bundle@my-claude-marketplace`
+
 **Future Bundles:**
 - Angular Frontend Bundle (coming soon)
 - Unity Game Dev Bundle (coming soon)
@@ -74,55 +84,67 @@ my-claude-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace configuration
 ├── bundles/
-│   └── react-frontend-bundle/    # React + UI/UX skills
+│   ├── react-frontend-bundle/    # React + UI/UX skills
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   └── skills/
+│   │       ├── react-patterns/
+│   │       │   └── SKILL.md
+│   │       └── ui-ux-design/
+│   │           └── SKILL.md
+│   └── dev-toolkit-bundle/       # Bundle creation tools
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       └── skills/
-│           ├── react-patterns/
-│           │   └── SKILL.md
-│           └── ui-ux-design/
-│               └── SKILL.md
+│           └── bundle-maker/
+│               ├── SKILL.md
+│               ├── references/   # Skill creation guide
+│               ├── scripts/      # Automation scripts
+│               └── examples/     # Working templates
 └── README.md                      # This file
 ```
 
 ## ➕ Adding More Bundles
 
-### Option 1: Create Local Bundle
+### Option 1: Use Bundle Maker Skill (Recommended)
 
 ```bash
-# Create bundle structure
-mkdir -p ~/projects/my-claude-skills/bundles/my-new-bundle/{.claude-plugin,skills/my-skill}
+# Install the dev toolkit
+/plugin install dev-toolkit-bundle@my-claude-marketplace
 
-# Create plugin.json
-cat > ~/projects/my-claude-skills/bundles/my-new-bundle/.claude-plugin/plugin.json <<EOF
-{
-  "name": "my-new-bundle",
-  "version": "1.0.0",
-  "description": "Description of your bundle",
-  "author": "Your Name",
-  "components": {
-    "skills": ["skills/my-skill"]
-  }
-}
-EOF
-
-# Create skill
-cat > ~/projects/my-claude-skills/bundles/my-new-bundle/skills/my-skill/SKILL.md <<EOF
----
-name: my-skill
-description: When this skill should activate
----
-
-# My Skill
-
-Instructions for Claude...
-EOF
-
-# Add to marketplace.json
-# Edit .claude-plugin/marketplace.json and add your bundle to the "plugins" array
+# Then ask Claude to create a bundle
+"Create a new bundle for Angular development"
+# or
+"Create a bundle for Unity game development"
 ```
 
-### Option 2: Reference External Bundle
+The bundle-maker skill will:
+- ✓ Ask for all required information upfront (no placeholders!)
+- ✓ Create proper directory structure
+- ✓ Generate plugin.json with your actual info
+- ✓ Create skill templates ready to fill in
+- ✓ Validate the bundle structure
+- ✓ Add to marketplace.json
+
+### Option 2: Use Utility Scripts
+
+```bash
+# Navigate to dev-toolkit-bundle scripts
+cd bundles/dev-toolkit-bundle/skills/bundle-maker/scripts
+
+# Create bundle structure
+./create-bundle.sh my-new-bundle
+
+# Add skills to the bundle
+./add-skill-to-bundle.sh ../../my-new-bundle my-skill
+
+# Validate before registering
+./validate-bundle.sh ../../my-new-bundle
+```
+
+See `bundles/dev-toolkit-bundle/skills/bundle-maker/scripts/README.md` for full documentation.
+
+### Option 3: Reference External Bundle
 
 Edit `.claude-plugin/marketplace.json`:
 
@@ -203,11 +225,19 @@ Add your preferred patterns, remove what you don't use, adjust to your team's st
 
 1. ✅ Marketplace created
 2. ✅ React bundle ready
-3. ⏳ Add Angular bundle (optional)
-4. ⏳ Add Unity bundle (optional)
-5. ⏳ Add Backend bundle (optional)
-6. ⏳ Add Core Workflow bundle (Git, code review, etc.)
+3. ✅ Dev toolkit bundle ready ⭐ **NEW**
+4. ⏳ Test bundle creation (use bundle-maker skill)
+5. ⏳ Add Angular bundle (optional)
+6. ⏳ Add Unity bundle (optional)
+7. ⏳ Add Backend bundle (optional)
+8. ⏳ Add Core Workflow bundle (Git, code review, etc.)
 
 ---
 
-**Happy coding!** Your marketplace is ready to use. Start with `/plugin install react-frontend-bundle@my-claude-skills` and begin building! 🎉
+**Happy coding!** Your marketplace is ready to use.
+
+**Quick Start:**
+- `/plugin install react-frontend-bundle@my-claude-marketplace` - For React development
+- `/plugin install dev-toolkit-bundle@my-claude-marketplace` - To create more bundles
+
+Then ask: "Create a new bundle for [your context]" 🎉

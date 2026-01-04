@@ -24,19 +24,19 @@ Complete guide to your Claude Skills Marketplace.
    - Core workflow bundle (optional)
    - Implementation priority order
 
-4. **[BUNDLE_TEMPLATE.md](./BUNDLE_TEMPLATE.md)** - Copy-paste templates
-   - plugin.json template
-   - SKILL.md template
-   - Command template
-   - Hook template
-   - MCP config template
-   - Bundle README template
-
 ### Bundle-Specific
-5. **[react-frontend-bundle/README.md](../bundles/react-frontend-bundle/README.md)**
+4. **[react-frontend-bundle/README.md](../bundles/react-frontend-bundle/README.md)**
    - What's in the React bundle
    - Usage examples
    - Customization guide
+
+### Development Tools
+5. **dev-toolkit-bundle** - Bundle creation automation
+   - **bundle-maker skill** - Automates bundle creation workflow
+   - **Utility scripts:** `create-bundle.sh`, `add-skill-to-bundle.sh`, `validate-bundle.sh`
+   - **Example bundles:** Working templates for minimal and complete bundles
+   - **Comprehensive guide:** `references/skill-creation-guide.md`
+   - Install with: `/plugin install dev-toolkit-bundle@my-claude-marketplace`
 
 ## 🎯 Quick Navigation
 
@@ -58,7 +58,8 @@ Complete guide to your Claude Skills Marketplace.
 → Read [NEXT_STEPS.md](./NEXT_STEPS.md) (Section: Unity Bundle)
 
 #### Create Any New Bundle
-→ Use [BUNDLE_TEMPLATE.md](./BUNDLE_TEMPLATE.md)
+→ Install dev-toolkit-bundle and ask: "Create a new bundle for [your context]"
+→ Or use utility scripts in `bundles/dev-toolkit-bundle/skills/bundle-maker/scripts/`
 
 #### Customize React Bundle
 → Read [react-frontend-bundle/README.md](../bundles/react-frontend-bundle/README.md)
@@ -73,19 +74,28 @@ my-claude-skills/
 │
 ├── docs/                              # 📚 YOU ARE HERE
 │   ├── INDEX.md                       # This file
-│   ├── NEXT_STEPS.md                  # ⭐ Next session roadmap
-│   └── BUNDLE_TEMPLATE.md             # Copy-paste templates
+│   └── NEXT_STEPS.md                  # ⭐ Next session roadmap
 │
 ├── bundles/
-│   └── react-frontend-bundle/         # ✅ Ready to use
+│   ├── react-frontend-bundle/         # ✅ Ready to use
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── skills/
+│   │   │   ├── react-patterns/
+│   │   │   │   └── SKILL.md           # ~600 lines, includes Zustand
+│   │   │   └── ui-ux-design/
+│   │   │       └── SKILL.md           # ~470 lines
+│   │   └── README.md
+│   │
+│   └── dev-toolkit-bundle/            # ✅ Bundle creation tools
 │       ├── .claude-plugin/
 │       │   └── plugin.json
-│       ├── skills/
-│       │   ├── react-patterns/
-│       │   │   └── SKILL.md           # ~700 lines, includes Zustand
-│       │   └── ui-ux-design/
-│       │       └── SKILL.md           # ~600 lines
-│       └── README.md
+│       └── skills/
+│           └── bundle-maker/
+│               ├── SKILL.md           # Bundle creation workflow
+│               ├── references/        # Skill creation guide
+│               ├── scripts/           # Automation scripts
+│               └── examples/          # Working bundle templates
 │
 ├── README.md                           # Main documentation
 └── QUICK_START.md                      # 3-command activation
@@ -113,11 +123,15 @@ Claude will:
 - ✅ React Frontend Bundle
   - ✅ React patterns skill (with Zustand, Redux Toolkit, Jotai)
   - ✅ UI/UX design skill
+- ✅ Dev Toolkit Bundle ⭐ **NEW**
+  - ✅ bundle-maker skill (automated bundle creation)
+  - ✅ Utility scripts (create, add, validate)
+  - ✅ Working example bundles
+  - ✅ Comprehensive skill creation guide
 - ✅ Complete documentation
-- ✅ Bundle templates for future work
 
 ### Next Steps (In Order)
-1. ⏳ Test React bundle thoroughly
+1. ⏳ Test dev-toolkit-bundle (create a new bundle with it)
 2. ⏳ Create Angular Frontend Bundle
 3. ⏳ Add MCP integration (Figma, Storybook)
 4. ⏳ Create Unity Game Dev Bundle
@@ -129,12 +143,13 @@ See [NEXT_STEPS.md](./NEXT_STEPS.md) for detailed implementation guides.
 
 ### For Documentation
 - All docs are in Markdown for easy Git versioning
-- Templates are copy-paste ready
+- Automated scripts replace manual templates
 - Guides include exact commands to run
 
 ### For Development
 - Follow the React bundle as a reference
-- Use BUNDLE_TEMPLATE.md for consistency
+- Use bundle-maker skill for new bundles: "Create a bundle for [context]"
+- Use validation script before registering: `./validate-bundle.sh <bundle-path>`
 - Keep UI/UX skill consistent across bundles (or extract to shared)
 
 ### For Team Sharing
@@ -162,8 +177,9 @@ When working on this marketplace, you can always:
 
 1. **Read the docs** - Everything is documented here
 2. **Ask Claude** - "Read docs/NEXT_STEPS.md and help me create [X]"
-3. **Check templates** - BUNDLE_TEMPLATE.md has all the boilerplate
+3. **Use bundle-maker skill** - Install dev-toolkit-bundle and ask to create bundles
 4. **Reference React bundle** - It's a complete working example
+5. **Use utility scripts** - Located in `bundles/dev-toolkit-bundle/skills/bundle-maker/scripts/`
 
 ---
 

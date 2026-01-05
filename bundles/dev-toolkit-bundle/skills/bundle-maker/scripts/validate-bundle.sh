@@ -119,6 +119,99 @@ else
   fi
 fi
 
+# Validate MCP configurations
+echo ""
+echo "Checking MCP configurations..."
+
+# Check for separate .mcp.json
+if [ -f "$BUNDLE_PATH/.mcp.json" ]; then
+  echo "✓ Found .mcp.json file"
+
+  if ! jq empty "$BUNDLE_PATH/.mcp.json" 2>/dev/null; then
+    echo "✗ ERROR: .mcp.json is not valid JSON"
+    ERRORS=$((ERRORS + 1))
+  else
+    echo "✓ .mcp.json is valid JSON"
+
+    if ! jq -e ".mcpServers" "$BUNDLE_PATH/.mcp.json" > /dev/null 2>&1; then
+      echo "✗ ERROR: .mcp.json missing 'mcpServers' object"
+      ERRORS=$((ERRORS + 1))
+    else
+      # Validate each server configuration
+      SERVER_COUNT=$(jq '.mcpServers | keys | length' "$BUNDLE_PATH/.mcp.json")
+      echo "  Validating $SERVER_COUNT MCP servers..."
+
+      jq -r '.mcpServers | keys[]' "$BUNDLE_PATH/.mcp.json" | while read -r server_name; do
+        TRANSPORT_TYPE=$(jq -r ".mcpServers[\"$server_name\"].type" "$BUNDLE_PATH/.mcp.json")
+
+        if [ "$TRANSPORT_TYPE" = "stdio" ]; then
+          if jq -e ".mcpServers[\"$server_name\"].command" "$BUNDLE_PATH/.mcp.json" > /dev/null 2>&1; then
+            echo "  ✓ MCP server '$server_name' (stdio) is valid"
+          else
+            echo "  ✗ ERROR: MCP server '$server_name' (stdio) missing 'command' field"
+            ERRORS=$((ERRORS + 1))
+          fi
+        elif [ "$TRANSPORT_TYPE" = "http" ]; then
+          if jq -e ".mcpServers[\"$server_name\"].url" "$BUNDLE_PATH/.mcp.json" > /dev/null 2>&1; then
+            echo "  ✓ MCP server '$server_name' (http) is valid"
+          else
+            echo "  ✗ ERROR: MCP server '$server_name' (http) missing 'url' field"
+            ERRORS=$((ERRORS + 1))
+          fi
+        else
+          echo "  ⚠ WARNING: MCP server '$server_name' has unknown transport type: $TRANSPORT_TYPE"
+          WARNINGS=$((WARNINGS + 1))
+        fi
+      done
+    fi
+  fi
+fi
+
+# Check for inline mcpServers in plugin.json
+if jq -e ".mcpServers" "$BUNDLE_PATH/.claude-plugin/plugin.json" > /dev/null 2>&1; then
+  MCP_VALUE=$(jq -r '.mcpServers | type' "$BUNDLE_PATH/.claude-plugin/plugin.json")
+
+  if [ "$MCP_VALUE" = "string" ]; then
+    # Reference to .mcp.json file
+    echo "✓ plugin.json references external MCP configuration"
+  else
+    # Inline configuration
+    echo "✓ plugin.json has inline mcpServers configuration"
+
+    if [ -f "$BUNDLE_PATH/.mcp.json" ]; then
+      echo "⚠ WARNING: Both .mcp.json and inline mcpServers exist - inline takes precedence"
+      WARNINGS=$((WARNINGS + 1))
+    fi
+
+    # Validate inline servers
+    SERVER_COUNT=$(jq '.mcpServers | keys | length' "$BUNDLE_PATH/.claude-plugin/plugin.json")
+    echo "  Validating $SERVER_COUNT inline MCP servers..."
+
+    jq -r '.mcpServers | keys[]' "$BUNDLE_PATH/.claude-plugin/plugin.json" | while read -r server_name; do
+      TRANSPORT_TYPE=$(jq -r ".mcpServers[\"$server_name\"].type" "$BUNDLE_PATH/.claude-plugin/plugin.json")
+
+      if [ "$TRANSPORT_TYPE" = "stdio" ]; then
+        if jq -e ".mcpServers[\"$server_name\"].command" "$BUNDLE_PATH/.claude-plugin/plugin.json" > /dev/null 2>&1; then
+          echo "  ✓ MCP server '$server_name' (stdio) is valid"
+        else
+          echo "  ✗ ERROR: MCP server '$server_name' (stdio) missing 'command' field"
+          ERRORS=$((ERRORS + 1))
+        fi
+      elif [ "$TRANSPORT_TYPE" = "http" ]; then
+        if jq -e ".mcpServers[\"$server_name\"].url" "$BUNDLE_PATH/.claude-plugin/plugin.json" > /dev/null 2>&1; then
+          echo "  ✓ MCP server '$server_name' (http) is valid"
+        else
+          echo "  ✗ ERROR: MCP server '$server_name' (http) missing 'url' field"
+          ERRORS=$((ERRORS + 1))
+        fi
+      else
+        echo "  ⚠ WARNING: MCP server '$server_name' has unknown transport type: $TRANSPORT_TYPE"
+        WARNINGS=$((WARNINGS + 1))
+      fi
+    done
+  fi
+fi
+
 echo ""
 echo "════════════════════════════════════════════"
 echo "Validation Results"

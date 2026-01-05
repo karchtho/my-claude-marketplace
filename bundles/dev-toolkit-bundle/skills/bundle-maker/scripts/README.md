@@ -73,6 +73,70 @@ Adds a skill structure to an existing bundle.
 
 ---
 
+### `add-mcp-to-bundle.sh`
+
+Adds an MCP (Model Context Protocol) server to an existing bundle interactively.
+
+**Usage:**
+```bash
+./add-mcp-to-bundle.sh <bundle-path> <server-name> <transport-type>
+```
+
+**Parameters:**
+- `<bundle-path>` - Path to the bundle directory
+- `<server-name>` - Kebab-case name for the MCP server (e.g., figma, github, database)
+- `<transport-type>` - Transport protocol: "stdio" (local process) or "http" (cloud API)
+
+**Examples:**
+```bash
+# Add HTTP MCP server (Figma)
+./add-mcp-to-bundle.sh ./bundles/angular-bundle figma http
+
+# Add stdio MCP server (database)
+./add-mcp-to-bundle.sh ./bundles/data-bundle database stdio
+```
+
+**Interactive Prompts:**
+
+**For stdio transport:**
+- Command path (e.g., `${CLAUDE_PLUGIN_ROOT}/servers/db-mcp`)
+- Arguments (optional, space-separated)
+- Environment variables (optional, interactive: "Add env var? (y/n)")
+
+**For HTTP transport:**
+- URL (e.g., `https://api.figma.com/v1/mcp/`)
+- Need authentication? (y/n)
+- If yes: Token variable name (e.g., `FIGMA_ACCESS_TOKEN`)
+
+**Configuration Approach Detection:**
+
+The script automatically detects:
+1. If `.mcp.json` exists → adds to it
+2. If `plugin.json` has `mcpServers` → adds inline
+3. If neither → asks user preference (separate file recommended)
+
+**Output:**
+- Creates or updates MCP configuration (JSON)
+- Validates syntax with `jq`
+- Prints environment setup instructions
+- Prints testing steps
+
+**No-Placeholder Strategy:**
+
+The script gathers ALL information interactively before creating any files, ensuring no TODO placeholders in the configuration.
+
+**Next steps after running:**
+1. Set required environment variables:
+   ```bash
+   export FIGMA_ACCESS_TOKEN="your-token"
+   export DB_PASSWORD="your-password"
+   ```
+2. Validate the bundle: `./validate-bundle.sh <bundle-path>`
+3. Reinstall the bundle to pick up MCP changes
+4. Test the MCP server by asking Claude to use it
+
+---
+
 ### `validate-bundle.sh`
 
 Validates bundle structure and plugin.json format.
@@ -99,17 +163,23 @@ Validates bundle structure and plugin.json format.
 **Errors (will fail validation):**
 - Missing `.claude-plugin/` directory
 - Missing `plugin.json` file
-- Invalid JSON format
+- Invalid JSON format in plugin.json or .mcp.json
 - Missing required fields: name, version, description, author
 - Missing author.name or author.email
 - Skill directories listed but not found
 - Missing SKILL.md in skill directories
+- MCP server missing required fields:
+  - Stdio: missing `command` field
+  - HTTP: missing `url` field
+- Invalid MCP transport type
 
 **Warnings (will pass but show issues):**
 - TODO placeholders in author fields
 - TODO placeholders in description
 - Missing YAML frontmatter in SKILL.md
 - No skills array or components object
+- Both `.mcp.json` and inline `mcpServers` exist (inline takes precedence)
+- Unknown MCP server transport type
 
 **Exit codes:**
 - `0` - Validation passed (may have warnings)

@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://api.figma.com/v1/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${FIGMA_ACCESS_TOKEN}"
+      }
+    },
+    "database": {
+      "type": "stdio",
+      "command": "${CLAUDE_PLUGIN_ROOT}/servers/db-mcp",
+      "args": ["--database", "production"],
+      "env": {
+        "DB_HOST": "${DB_HOST}",
+        "DB_USER": "${DB_USER}",
+        "DB_PASSWORD": "${DB_PASSWORD}"
+      }
+    }
+  }
+}

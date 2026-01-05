@@ -252,9 +252,96 @@ Agents are autonomous assistants for complex tasks. See **`references/agents-gui
 
 Hooks enable event-driven automation. See **`references/hooks-guide.md`** for hook implementation patterns.
 
-#### Adding MCP Servers (Future Extension)
+#### Adding MCP Servers
 
-MCP servers integrate external tools (Figma, Linear, GitHub). See **`references/mcp-integration-guide.md`** for MCP configuration patterns.
+MCP servers integrate external tools like Figma, GitHub, and databases into your bundle. Use when your bundle needs access to design systems, code repositories, or external APIs.
+
+**Information to gather:**
+1. **MCP server name** - Kebab-case identifier (e.g., "figma", "github", "database")
+2. **Transport type** - "stdio" (local process) or "http" (cloud API)
+3. **Configuration details** (based on transport type):
+   - **Stdio:** Command path, arguments (optional), environment variables (optional)
+   - **HTTP:** URL, headers (optional), authentication token variable (optional)
+4. **Environment variables** - Secret names for credentials
+5. **Configuration approach** - Separate `.mcp.json` file or inline in `plugin.json`
+
+**Quick MCP creation (no placeholders):**
+
+Use the automation script to add MCP servers interactively:
+
+```bash
+scripts/add-mcp-to-bundle.sh <bundle-path> <server-name> <transport-type>
+```
+
+**Example: Add Figma to Angular bundle**
+```bash
+scripts/add-mcp-to-bundle.sh bundles/angular-bundle figma http
+# Prompts: URL → https://api.figma.com/v1/mcp/
+#         Need auth? → yes
+#         Token variable name? → FIGMA_ACCESS_TOKEN
+```
+
+**Configuration Option A: Separate `.mcp.json`** (recommended for multiple servers)
+
+Best for bundles with 2+ MCP servers or complex setups:
+
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://api.figma.com/v1/mcp/",
+      "headers": {"Authorization": "Bearer ${FIGMA_ACCESS_TOKEN}"}
+    },
+    "database": {
+      "type": "stdio",
+      "command": "${CLAUDE_PLUGIN_ROOT}/servers/db-mcp",
+      "env": {"DB_PASSWORD": "${DB_PASSWORD}"}
+    }
+  }
+}
+```
+
+**Configuration Option B: Inline in `plugin.json`** (recommended for single server)
+
+Best for bundles with one MCP server:
+
+```json
+{
+  "name": "my-bundle",
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {"Authorization": "Bearer ${GITHUB_TOKEN}"}
+    }
+  }
+}
+```
+
+**Authentication patterns:**
+
+Use environment variables to store secrets—never hardcode credentials:
+
+```json
+{
+  "figma": {
+    "headers": {"Authorization": "Bearer ${FIGMA_ACCESS_TOKEN}"}
+  }
+}
+```
+
+User sets token before using:
+```bash
+export FIGMA_ACCESS_TOKEN="your-token-here"
+```
+
+**See `references/mcp-integration-guide.md` for:**
+- Complete transport type documentation (stdio, HTTP, SSE)
+- Authentication strategies and security
+- Common MCP servers (Figma, GitHub, Sentry, databases)
+- Complete examples (database, Figma, multi-server)
+- Testing and troubleshooting
 
 ### Step 5: Register Bundle in Marketplace
 

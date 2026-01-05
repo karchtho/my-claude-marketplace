@@ -8,5 +8,9 @@
   },
   "skills": [
     "./skills/session-manager"
+  ],
+  "commands": [
+    "./commands/session-start",
+    "./commands/session-end"
   ]
 }

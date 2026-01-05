@@ -15,6 +15,11 @@
       "name": "dev-toolkit-bundle",
       "source": "./bundles/dev-toolkit-bundle",
       "description": "Development toolkit for creating Claude Code plugins and bundles with comprehensive bundle-making capabilities"
+    },
+    {
+      "name": "sessions-workflow-bundle",
+      "source": "./bundles/sessions-workflow-bundle",
+      "description": "Token-efficient session management with /session-start and /session-end commands - load project context, track work, auto-commit with conventional commits"
     }
   ]
 }

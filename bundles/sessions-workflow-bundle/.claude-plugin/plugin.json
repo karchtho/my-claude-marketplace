@@ -1,0 +1,12 @@
+{
+  "name": "sessions-workflow-bundle",
+  "version": "1.0.0",
+  "description": "Token-efficient session management with environment awareness for project context, git state, and skill detection",
+  "author": {
+    "name": "karchtho",
+    "email": "kitadevturtle@gmail.com"
+  },
+  "skills": [
+    "./skills/session-manager"
+  ]
+}

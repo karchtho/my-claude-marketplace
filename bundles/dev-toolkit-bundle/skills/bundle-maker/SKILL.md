@@ -212,9 +212,37 @@ Each SKILL.md must have:
 
 For detailed skill creation methodology, consult **`references/skill-creation-guide.md`** which includes the complete skill-creator workflow.
 
-#### Adding Commands (Future Extension)
+#### Adding Commands (Recommended)
 
-Commands are CLI-like utilities for code generation. See **`references/commands-guide.md`** for command implementation patterns.
+Commands are CLI-like utilities for specialized workflows (e.g., `/session-start`, `/commit`, `/test-debug`).
+
+**CRITICAL: Command Creation Requirements**
+
+Follow **`references/commands-guide.md`** STRICTLY. Commands must:
+- Use simple, single-purpose bash commands (NO piped commands like `ls -t | head`)
+- Declare all `allowed-tools` in frontmatter explicitly
+- Use `@` file references (e.g., `@CLAUDE.md`) instead of bash to locate files
+- Keep instructions concise (5-10 lines max)
+- Gracefully handle missing files/directories
+
+**Command Structure:**
+```bash
+commands/
+├── command-1.md        # One command per file
+├── command-2.md
+└── command-3.md
+```
+
+Each command file must have YAML frontmatter:
+```yaml
+---
+name: kebab-case-name
+description: Keywords and description users would search for
+allowed-tools: Bash(git:*), Read, Glob  # Explicit declarations
+---
+```
+
+See **`references/commands-guide.md`** for complete patterns, examples, and validation checklist.
 
 #### Adding Agents (Future Extension)
 
@@ -385,6 +413,61 @@ skill-name/
 ```
 
 Claude loads references only when needed, minimizing context bloat.
+
+## Command Creation Best Practices
+
+If your bundle includes commands, follow these CRITICAL principles to ensure reliability:
+
+### Key Rules
+
+**1. Use Simple Bash Commands Only**
+- ONE command per piece of information
+- NO pipes, chains, or complex operators
+- NO `find ... -exec`, `ls -t | head`, or similar patterns
+
+✅ **Good:**
+```markdown
+Current branch: !`git branch --show-current`
+Git status: !`git status --short`
+```
+
+❌ **Bad:**
+```markdown
+Latest: !`ls -t docs/*.md | head -1`  # This breaks!
+```
+
+**2. Always Declare allowed-tools**
+```yaml
+---
+name: my-command
+allowed-tools: Bash(git:*), Bash(npm:*), Read, Glob
+---
+```
+
+**3. Use File References Instead of Bash**
+- Reference stable documents with `@` prefix
+- Don't use bash to locate or read files
+
+✅ **Good:**
+```markdown
+See @CLAUDE.md for project guidelines.
+```
+
+❌ **Bad:**
+```markdown
+Guidelines: !`cat CLAUDE.md | head -50`
+```
+
+**4. Keep Instructions Concise**
+- 5-10 lines maximum
+- Let Claude handle analysis
+- Focus on high-level goals only
+
+### Why This Matters
+
+Complex bash commands (with pipes, find -exec, etc.) trigger Claude Code permission checks and cause runtime failures. Simple, focused commands execute reliably and load context effectively.
+
+**See `references/commands-guide.md` for complete patterns, examples, and a validation checklist.**
 
 ## Relationship to Skill-Making Skills
 

@@ -13,7 +13,6 @@ Initialize a new Claude Code session with full context loading.
 - Git status: !`git status --short 2>/dev/null || echo "Not in git repo"`
 - Current branch: !`git branch --show-current 2>/dev/null || echo "N/A"`
 - Latest session: !`ls -t docs/sessions/*.md 2>/dev/null | head -1 || echo "None"`
-- Installed plugins: !`find ~/.claude/plugins -maxdepth 2 -name "plugin.json" -exec jq -r '.name' {} \; 2>/dev/null | head -5 || echo "None detected"`
 
 ## Your Task
 

@@ -1,0 +1,13 @@
+{
+  "name": "infra-bundle",
+  "version": "1.0.0",
+  "description": "Infrastructure and DevOps expertise bundle. Master bash scripting, nginx configuration, and deployment automation for production-grade systems.",
+  "author": {
+    "name": "Claude Code Community",
+    "email": "skills@anthropic.com"
+  },
+  "skills": [
+    "./skills/bash-scripting",
+    "./skills/nginx-configuration"
+  ]
+}

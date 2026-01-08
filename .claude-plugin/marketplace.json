@@ -17,6 +17,11 @@
       "description": "Development toolkit for creating Claude Code plugins and bundles with comprehensive bundle-making capabilities"
     },
     {
+      "name": "infra-bundle",
+      "source": "./bundles/infra-bundle",
+      "description": "Infrastructure and DevOps expertise: bash scripting best practices, nginx configuration, deployment automation, and production system management"
+    },
+    {
       "name": "sessions-workflow-bundle",
       "source": "./bundles/sessions-workflow-bundle",
       "description": "Token-efficient session management with /session-start and /session-end commands - load project context, track work, auto-commit with conventional commits"

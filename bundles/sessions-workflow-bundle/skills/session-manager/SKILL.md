@@ -160,13 +160,23 @@ The best part: You can use `/session-start` and `/session-end` for automatic wor
 /session-end            # Create summary and commit automatically
 ```
 
+**With Teacher Mode:**
+```bash
+/session-start --teacher    # Load context with educational explanations
+# ... work for 1-2 hours ...
+/session-end                # Create summary and commit automatically
+```
+
 **Advantages:**
 - Fully automatic
 - Consistent format
 - Ensures commits happen
-- Optimal token usage
+- Optimal token usage (standard mode)
+- Teacher mode helps learn patterns and best practices
 
-**Token cost**: ~3500-4500 per session (start + end combined)
+**Token cost**:
+- Standard: ~3500-4500 per session (start + end combined)
+- Teacher mode: ~5000-7000 per session (includes educational content)
 
 ### Pattern 2: Skill-Based Workflow (Flexible)
 
@@ -236,6 +246,86 @@ Each session:
 - Builds on previous work
 - Leaves clear notes for next session
 - Creates project memory over time
+
+## Teacher Mode
+
+**Teacher Mode** is an educational enhancement for `/session-start` that transforms context loading into a learning experience.
+
+### What is Teacher Mode?
+
+Enable with: `/session-start --teacher`
+
+Instead of a brief context summary, you get:
+- **Step-by-step narration** of what Claude is doing and why
+- **Learning context** about patterns, conventions, and best practices
+- **Discussion questions** to deepen understanding
+- **Alternative approaches** with trade-offs explained
+
+### When to Use Teacher Mode
+
+Use teacher mode when:
+- **Learning a new codebase** - Understand patterns and conventions
+- **Onboarding to a project** - Get educational context about architecture
+- **Understanding decisions** - Learn why previous sessions chose certain approaches
+- **Exploring best practices** - See how project patterns align with industry standards
+- **Teaching others** - Share the expanded explanation with team members
+
+### Teacher Mode Behavior
+
+When teacher mode is enabled, `/session-start` will:
+
+1. **Explain every action taken**
+   - "I'm reading CLAUDE.md to understand project conventions..."
+   - "Checking git status helps identify uncommitted work that might affect today's tasks"
+
+2. **Provide learning context**
+   - Educational notes about conventions and patterns
+   - Explanations of why certain practices are used
+   - Industry best practices connections
+
+3. **Ask follow-up questions**
+   - Check understanding of previous work
+   - Clarify unfamiliar patterns
+   - Explore preferences for next steps
+
+4. **Show alternative approaches**
+   - Present multiple paths forward
+   - Explain trade-offs between options
+   - Encourage critical thinking about choices
+
+### Example Comparison
+
+**Standard Mode:**
+```
+✓ Current branch: feature-auth
+✓ Git status: 3 files modified
+✓ Previous work: Implemented JWT token generation
+```
+
+**Teacher Mode:**
+```
+✓ Current branch: feature-auth
+  → This branch name follows the "feature-" prefix convention, which helps
+    team members quickly identify feature branches vs bugfix branches
+
+✓ Git status: 3 files modified (auth.ts, jwt.ts, auth.test.ts)
+  → Having uncommitted changes is normal mid-feature, but be aware:
+    - These changes should be related to the same logical unit
+    - Consider if they're ready to commit before starting new work
+
+✓ Previous work: Implemented JWT token generation
+  → The previous session chose JWT over session tokens because:
+    - Stateless authentication scales better
+    - Frontend can decode tokens without backend call
+    - Common pattern in modern SPAs
+```
+
+### Token Cost Consideration
+
+- **Standard mode**: ~2000-2500 tokens for session start
+- **Teacher mode**: ~3500-4500 tokens for session start
+
+**Recommendation**: Use teacher mode selectively when learning is the priority. Once familiar with the codebase, switch back to standard mode for efficiency.
 
 ## Session Summary Format
 
@@ -413,21 +503,25 @@ For detailed information, see:
 ## Quick Tips
 
 1. **Use `/session-start` first** - Always load context before starting work
-2. **Take checkpoint summaries** - For long sessions, document mid-session progress
-3. **Use `/session-end` at end** - Automatic summary creation and commit
-4. **Review summaries** - Check docs/sessions/ to understand project history
-5. **Reference previous sessions** - Build on what was learned before
+2. **Enable teacher mode when learning** - Use `/session-start --teacher` for new codebases
+3. **Take checkpoint summaries** - For long sessions, document mid-session progress
+4. **Use `/session-end` at end** - Automatic summary creation and commit
+5. **Review summaries** - Check docs/sessions/ to understand project history
+6. **Reference previous sessions** - Build on what was learned before
+7. **Switch to standard mode when familiar** - Save tokens once you know the patterns
 
 ## When to Use This Skill vs Slash Commands
 
 | Situation | Use | Reason |
 |-----------|-----|--------|
 | Starting a new session | `/session-start` | Automatic, optimal tokens |
+| Learning new codebase | `/session-start --teacher` | Educational context, explanations |
 | Ending session normally | `/session-end` | Automatic, creates commit |
 | Need to review context | This skill | "What did we work on?" |
 | Need to document mid-session | This skill | "Checkpoint summary..." |
 | Working in bursts | This skill | More flexible timing |
 | Want full automation | `/session-start` + `/session-end` | Fastest, most efficient |
+| Want to understand patterns | `/session-start --teacher` | Learn while loading context |
 
 ## Integration with Other Skills/Bundles
 

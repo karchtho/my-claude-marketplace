@@ -25,6 +25,11 @@
       "name": "sessions-workflow-bundle",
       "source": "./bundles/sessions-workflow-bundle",
       "description": "Token-efficient session management with /session-start and /session-end commands - load project context, track work, auto-commit with conventional commits"
+    },
+    {
+      "name": "api-design-bundle",
+      "source": "./bundles/api-design-bundle",
+      "description": "Comprehensive API design expertise for REST and GraphQL: resource modeling, schema design, security, testing with Postman MCP integration, and production-grade API architecture"
     }
   ]
 }

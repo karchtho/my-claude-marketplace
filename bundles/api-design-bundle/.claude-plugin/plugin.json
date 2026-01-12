@@ -1,0 +1,28 @@
+{
+  "name": "api-design-bundle",
+  "version": "1.0.0",
+  "description": "Comprehensive API design expertise for REST and GraphQL APIs. Master resource modeling, schema design, security, testing, and production-grade API architecture.",
+  "author": {
+    "name": "Claude Code Community",
+    "email": "skills@anthropic.com"
+  },
+  "skills": [
+    "./skills/rest-api-design",
+    "./skills/graphql-api-design",
+    "./skills/api-architecture",
+    "./skills/api-testing"
+  ],
+  "metadata": {
+    "tags": [
+      "api-design",
+      "rest",
+      "graphql",
+      "api-testing",
+      "postman",
+      "mcp",
+      "architecture",
+      "security"
+    ],
+    "category": "api-development"
+  }
+}

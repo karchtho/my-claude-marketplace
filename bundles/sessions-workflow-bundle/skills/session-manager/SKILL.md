@@ -174,9 +174,9 @@ The best part: You can use `/session-start` and `/session-end` for automatic wor
 - Optimal token usage (standard mode)
 - Teacher mode helps learn patterns and best practices
 
-**Token cost**:
-- Standard: ~3500-4500 per session (start + end combined)
-- Teacher mode: ~5000-7000 per session (includes educational content)
+**Token cost** (with v2.0 doc scanning):
+- Standard: ~4500-5500 per session start (start + end combined ~5500-6500)
+- Teacher mode: ~5500-6500 per session start (includes educational content; start + end combined ~6500-7500)
 
 ### Pattern 2: Skill-Based Workflow (Flexible)
 
@@ -293,17 +293,65 @@ When teacher mode is enabled, `/session-start` will:
    - Explain trade-offs between options
    - Encourage critical thinking about choices
 
+### Mode Detection
+
+Starting with `/session-start` version 2.0, the command includes explicit **MODE DETECTION** at the top:
+
+```
+## ⚠️ MODE DETECTION - READ THIS FIRST
+
+**CRITICAL**: Check if the `--teacher` flag was provided when this command was invoked.
+
+### If `--teacher` flag IS PRESENT:
+→ **ACTIVATE TEACHER MODE**
+→ Follow teacher mode instructions exclusively
+
+### If `--teacher` flag IS NOT PRESENT:
+→ **ACTIVATE STANDARD MODE**
+→ Follow standard mode instructions exclusively
+
+**You MUST choose ONE mode. Do NOT blend instructions from both modes.**
+```
+
+This explicit routing makes it impossible for Claude to miss which mode is active.
+
+### Documentation Scanning
+
+The command now scans for and lists available documentation during session start:
+
+**Pattern matching**:
+- `docs/technical/` or `docs/technique/` (English/French)
+- README.md or INDEX.md files in docs/
+- Limits to 20 files to conserve tokens
+
+**Token cost**: ~300-700 tokens for listing (vs 20,000+ tokens to load full content)
+
+**What happens**:
+- Standard mode: Lists doc count, mentions if relevant files found
+- Teacher mode: Explains what docs exist, offers to review specific files
+
 ### Example Comparison
 
-**Standard Mode:**
+**Standard Mode (without --teacher):**
 ```
+📚 Session Context Loaded
+
 ✓ Current branch: feature-auth
 ✓ Git status: 3 files modified
+✓ Documentation: 8 files in docs/ (found docs/technical/README.md)
+✓ Project guidelines: Authentication patterns, session management
 ✓ Previous work: Implemented JWT token generation
+
+What would you like to work on today?
 ```
 
-**Teacher Mode:**
+**Teacher Mode (with --teacher):**
 ```
+📚 Session Context Loaded (Teacher Mode)
+
+🔍 Context Discovery Process:
+I started by reading CLAUDE.md to understand how this project is structured...
+
 ✓ Current branch: feature-auth
   → This branch name follows the "feature-" prefix convention, which helps
     team members quickly identify feature branches vs bugfix branches
@@ -313,19 +361,54 @@ When teacher mode is enabled, `/session-start` will:
     - These changes should be related to the same logical unit
     - Consider if they're ready to commit before starting new work
 
-✓ Previous work: Implemented JWT token generation
-  → The previous session chose JWT over session tokens because:
+✓ Documentation: 8 files found in docs/
+  → I found docs/technical/README.md which documents authentication patterns
+  → Would you like me to review docs/technical/auth-flow.md to understand the design?
+
+✓ Project guidelines: Authentication patterns, session management
+  → This project uses JWT over session tokens because:
     - Stateless authentication scales better
     - Frontend can decode tokens without backend call
     - Common pattern in modern SPAs
+
+✓ Previous work: Implemented JWT token generation
+  → The previous session created the token generation logic...
+  → Notice how they structured error handling for edge cases
+
+💡 Learning Points:
+- Stateless auth with JWT is scalable but requires careful token management
+- Documentation helps maintain consistent patterns across the project
+- Feature branches help isolate work and enable code review
+
+🤔 Discussion Questions:
+- Do you understand why JWT was chosen over session tokens?
+- Would you like me to explain the token refresh strategy in the docs?
+
+🛤️ Possible Paths Forward:
+A) Add refresh token logic to improve security
+B) Implement token revocation for logout
+C) Add comprehensive auth error handling tests
+
+What would you like to explore today?
 ```
 
 ### Token Cost Consideration
 
-- **Standard mode**: ~2000-2500 tokens for session start
-- **Teacher mode**: ~3500-4500 tokens for session start
+**After documentation scanning addition (v2.0)**:
 
-**Recommendation**: Use teacher mode selectively when learning is the priority. Once familiar with the codebase, switch back to standard mode for efficiency.
+- **Standard mode**: ~4500 tokens for session start (up from 3700)
+  - Context loading: ~3200 tokens
+  - Documentation scanning: ~300-500 tokens
+  - Response: ~400-800 tokens
+
+- **Teacher mode**: ~5500 tokens for session start (up from 4700)
+  - Context loading: ~4000 tokens
+  - Documentation scanning: ~300-500 tokens
+  - Response: ~1000-1500 tokens
+
+**Still well within budget** (target: <6000 tokens per session start)
+
+**Recommendation**: Use teacher mode selectively when learning is the priority. Once familiar with the codebase, switch back to standard mode for efficiency. Documentation is listed but not loaded, keeping token usage reasonable.
 
 ## Session Summary Format
 

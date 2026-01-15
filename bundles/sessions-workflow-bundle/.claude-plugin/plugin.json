@@ -10,8 +10,8 @@
     "./skills/session-manager"
   ],
   "commands": [
-    "./commands/session-start.md",
-    "./commands/session-start-teach.md",
-    "./commands/session-end.md"
+    "../commands/session-start.md",
+    "../commands/session-start-teach.md",
+    "../commands/session-end.md"
   ]
 }

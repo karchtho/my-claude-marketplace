@@ -15,6 +15,16 @@
     "./skills/code-reviewer",
     "./skills/integration-validator"
   ],
-  "commands": "./commands",
-  "agents": "./agents"
+  "commands": [
+    "./commands/review-starters.md",
+    "./commands/design-feature.md",
+    "./commands/generate-feature.md",
+    "./commands/review-code.md",
+    "./commands/jam-status.md"
+  ],
+  "agents": [
+    "./agents/jam-architect.md",
+    "./agents/feature-developer.md",
+    "./agents/code-quality.md"
+  ]
 }

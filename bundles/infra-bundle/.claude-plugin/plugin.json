@@ -1,13 +1,18 @@
 {
   "name": "infra-bundle",
-  "version": "1.0.0",
-  "description": "Infrastructure and DevOps expertise bundle. Master bash scripting, nginx configuration, and deployment automation for production-grade systems.",
+  "version": "1.1.0",
+  "description": "Infrastructure and DevOps expertise bundle. Master containerization (Docker), CI/CD automation (GitHub Actions), configuration management, bash scripting, nginx configuration, and deployment patterns for production-grade systems.",
   "author": {
     "name": "Claude Code Community",
     "email": "skills@anthropic.com"
   },
   "skills": [
     "./skills/bash-scripting",
-    "./skills/nginx-configuration"
+    "./skills/nginx-configuration",
+    "./skills/docker-container-basics",
+    "./skills/dockerfile-generator",
+    "./skills/docker-compose-creator",
+    "./skills/github-actions-starter",
+    "./skills/environment-variables-handler"
   ]
 }

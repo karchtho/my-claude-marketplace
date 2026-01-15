@@ -1,4 +1,5 @@
 ---
+name: session-end
 description: End session - create summary, commit changes with conventional commits
 allowed-tools: Read(.), Write(docs/sessions/**), Bash(git:*), TodoWrite, Glob(docs/), Grep
 model: haiku

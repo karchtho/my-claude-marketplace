@@ -4,9 +4,10 @@ Token-efficient session management for Claude Code - load project context at the
 
 ## 🎯 What It Does
 
-This bundle provides two essential commands for managing focused development sessions:
+This bundle provides three essential commands for managing focused development sessions:
 
-- **`/session-start`** - Load project context (CLAUDE.md, README, previous sessions, git state) in ~1500-2000 tokens
+- **`/session-start`** - Load project context with brief summaries (standard mode) in ~3200-3500 tokens
+- **`/session-start-teach`** - Load context with educational explanations (teacher mode) in ~4200-4500 tokens
 - **`/session-end`** - Create session summary, commit changes, and detect commit style in ~2000-2500 tokens
 
 Plus a flexible **session-manager** skill for non-command workflows.
@@ -22,6 +23,7 @@ Plus a flexible **session-manager** skill for non-command workflows.
 
 ### Basic Workflow
 
+**Standard Mode (brief, efficient):**
 ```bash
 # Start your session - loads all context automatically
 /session-start
@@ -31,6 +33,32 @@ Plus a flexible **session-manager** skill for non-command workflows.
 # End your session - creates summary and commits
 /session-end
 ```
+
+**Teacher Mode (educational, verbose):**
+```bash
+# Start with educational context - perfect for learning
+/session-start-teach
+
+# ... work on your code with deeper understanding ...
+
+# End your session - creates summary and commits
+/session-end
+```
+
+### 🎓 Two Session Start Modes
+
+**Standard Mode** (`/session-start`):
+- Brief, efficient context loading
+- ~300 word summaries
+- Focus on actionable information
+- **Best for:** Daily work, experienced developers, token efficiency
+
+**Teacher Mode** (`/session-start-teach`):
+- Educational explanations and learning context
+- ~500-700 word responses with insights
+- Step-by-step narration of what's happening
+- Discussion questions and alternative approaches
+- **Best for:** Learning new codebases, onboarding, understanding patterns
 
 ## 📚 Features
 
@@ -128,19 +156,30 @@ For non-command workflows:
 
 ### Pattern 1: Full Automation (Recommended)
 
+**Standard Mode:**
 ```bash
 /session-start          # Load context
 # ... 1-2 hours of work ...
 /session-end            # Summary + commit
 ```
 
+**Teacher Mode:**
+```bash
+/session-start-teach    # Load context with education
+# ... 1-2 hours of work ...
+/session-end            # Summary + commit
+```
+
 **Advantages:**
 - Fully automatic
-- Optimal token usage (~3500-4500 tokens total)
+- Optimal token usage (~4500-5000 standard, ~5500-6000 teacher)
 - Ensures commits happen
 - Consistent documentation
+- Teacher mode provides learning context
 
-**Best for:** Regular development sessions, focused work, team projects
+**Best for:**
+- Standard: Regular development sessions, focused work, team projects
+- Teacher: Learning new codebases, onboarding, understanding patterns
 
 ### Pattern 2: Interactive Workflow
 
@@ -160,9 +199,19 @@ For non-command workflows:
 
 ### Pattern 3: Hybrid (Complex Work)
 
+**Standard Mode:**
 ```bash
 /session-start                    # Load context
 # ... work on complex feature ...
+"Take a checkpoint - create a mid-session summary"
+# ... continue working ...
+/session-end                      # Final commit
+```
+
+**Teacher Mode (for learning):**
+```bash
+/session-start-teach              # Load educational context
+# ... work on complex feature with explanations ...
 "Take a checkpoint - create a mid-session summary"
 # ... continue working ...
 /session-end                      # Final commit
@@ -172,8 +221,9 @@ For non-command workflows:
 - Automatic structure
 - Manual checkpoints for complex work
 - Document progress without committing
+- Teacher mode helps understand decisions
 
-**Best for:** Long sessions, multi-part features, refactoring
+**Best for:** Long sessions, multi-part features, refactoring, learning complex patterns
 
 ## 📊 Token Budget
 
@@ -181,9 +231,11 @@ This bundle is designed for minimal token usage:
 
 | Operation | Tokens | Details |
 |-----------|--------|---------|
-| `/session-start` | 1500-2000 | Load context + analysis |
+| `/session-start` | 3200-3500 | Standard mode: brief context |
+| `/session-start-teach` | 4200-4500 | Teacher mode: educational context |
 | `/session-end` | 2000-2500 | Create summary + commit |
-| **Total per session** | **3500-4500** | ~80% savings vs naive approach |
+| **Total per session (standard)** | **4500-5000** | Efficient for daily work |
+| **Total per session (teacher)** | **5500-6000** | Educational, great for learning |
 
 ### Optimization Techniques
 
@@ -217,7 +269,8 @@ This bundle is designed for minimal token usage:
 ```
 sessions-workflow-bundle/
 ├── commands/
-│   ├── session-start.md        # Load project context
+│   ├── session-start.md        # Load project context (standard mode)
+│   ├── session-start-teach.md  # Load context with education (teacher mode)
 │   └── session-end.md          # Create summary and commit
 ├── skills/
 │   └── session-manager/        # Flexible session workflows
@@ -323,14 +376,16 @@ You can customize this by editing the `/session-end` command.
 
 ### Adjusting Token Budget
 
-By default, the commands target ~3500-4500 tokens per full session.
+By default, the commands target ~4500-5000 tokens per full session (standard) or ~5500-6000 (teacher).
 
 To **reduce tokens further**:
-- Edit `/session-start` to skip reading CLAUDE.md or README.md
+- Use `/session-start` (standard mode) instead of `/session-start-teach`
+- Edit commands to skip reading CLAUDE.md or README.md
 - Use `/session-end` without creating detailed summaries
 - Reduce git history analysis (currently checks 5 commits)
 
 To **load more context**:
+- Use `/session-start-teach` for educational content
 - Increase file size limits (currently first N lines)
 - Load more documentation files
 - Include more git history

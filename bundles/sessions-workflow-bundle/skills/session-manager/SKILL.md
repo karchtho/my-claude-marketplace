@@ -154,17 +154,18 @@ The best part: You can use `/session-start` and `/session-end` for automatic wor
 
 ### Pattern 1: Slash Command Workflow (Recommended)
 
+**Standard Mode (brief, efficient):**
 ```bash
 /session-start          # Load context automatically
 # ... work for 1-2 hours ...
 /session-end            # Create summary and commit automatically
 ```
 
-**With Teacher Mode:**
+**Teacher Mode (educational, verbose):**
 ```bash
-/session-start --teacher    # Load context with educational explanations
+/session-start-teach    # Load context with educational explanations
 # ... work for 1-2 hours ...
-/session-end                # Create summary and commit automatically
+/session-end            # Create summary and commit automatically
 ```
 
 **Advantages:**
@@ -174,9 +175,9 @@ The best part: You can use `/session-start` and `/session-end` for automatic wor
 - Optimal token usage (standard mode)
 - Teacher mode helps learn patterns and best practices
 
-**Token cost** (with v2.0 doc scanning):
-- Standard: ~4500-5500 per session start (start + end combined ~5500-6500)
-- Teacher mode: ~5500-6500 per session start (includes educational content; start + end combined ~6500-7500)
+**Token cost** (with v3.0 separate commands):
+- Standard: ~3200-3500 per session start (start + end combined ~4500-5000)
+- Teacher mode: ~4200-4500 per session start (includes educational content; start + end combined ~5500-6000)
 
 ### Pattern 2: Skill-Based Workflow (Flexible)
 
@@ -249,13 +250,13 @@ Each session:
 
 ## Teacher Mode
 
-**Teacher Mode** is an educational enhancement for `/session-start` that transforms context loading into a learning experience.
+**Teacher Mode** is a separate command (`/session-start-teach`) that transforms context loading into a learning experience.
 
 ### What is Teacher Mode?
 
-Enable with: `/session-start --teacher`
+Use the command: `/session-start-teach`
 
-Instead of a brief context summary, you get:
+Instead of a brief context summary (from `/session-start`), you get:
 - **Step-by-step narration** of what Claude is doing and why
 - **Learning context** about patterns, conventions, and best practices
 - **Discussion questions** to deepen understanding
@@ -272,7 +273,7 @@ Use teacher mode when:
 
 ### Teacher Mode Behavior
 
-When teacher mode is enabled, `/session-start` will:
+When you use `/session-start-teach`, it will:
 
 1. **Explain every action taken**
    - "I'm reading CLAUDE.md to understand project conventions..."
@@ -293,27 +294,20 @@ When teacher mode is enabled, `/session-start` will:
    - Explain trade-offs between options
    - Encourage critical thinking about choices
 
-### Mode Detection
+### Command Separation
 
-Starting with `/session-start` version 2.0, the command includes explicit **MODE DETECTION** at the top:
+Starting with version 3.0, standard and teacher modes are now **separate commands**:
 
-```
-## ⚠️ MODE DETECTION - READ THIS FIRST
+- **`/session-start`** - Brief, efficient context loading (standard mode)
+- **`/session-start-teach`** - Educational context loading with explanations (teacher mode)
 
-**CRITICAL**: Check if the `--teacher` flag was provided when this command was invoked.
+**Why separate commands?**
+- **Reliability**: No conditional logic = no ambiguity
+- **Clarity**: Each command has one clear purpose
+- **Token efficiency**: Only loads relevant instructions (no unused sections)
+- **Maintainability**: Self-contained files are easier to modify
 
-### If `--teacher` flag IS PRESENT:
-→ **ACTIVATE TEACHER MODE**
-→ Follow teacher mode instructions exclusively
-
-### If `--teacher` flag IS NOT PRESENT:
-→ **ACTIVATE STANDARD MODE**
-→ Follow standard mode instructions exclusively
-
-**You MUST choose ONE mode. Do NOT blend instructions from both modes.**
-```
-
-This explicit routing makes it impossible for Claude to miss which mode is active.
+This eliminates the need for flag-based mode detection and prevents instruction blending.
 
 ### Documentation Scanning
 
@@ -332,7 +326,7 @@ The command now scans for and lists available documentation during session start
 
 ### Example Comparison
 
-**Standard Mode (without --teacher):**
+**Standard Mode (`/session-start`):**
 ```
 📚 Session Context Loaded
 
@@ -345,7 +339,7 @@ The command now scans for and lists available documentation during session start
 What would you like to work on today?
 ```
 
-**Teacher Mode (with --teacher):**
+**Teacher Mode (`/session-start-teach`):**
 ```
 📚 Session Context Loaded (Teacher Mode)
 
@@ -394,21 +388,25 @@ What would you like to explore today?
 
 ### Token Cost Consideration
 
-**After documentation scanning addition (v2.0)**:
+**With separate commands (v3.0)**:
 
-- **Standard mode**: ~4500 tokens for session start (up from 3700)
-  - Context loading: ~3200 tokens
+- **Standard mode** (`/session-start`): ~3200-3500 tokens
+  - Context loading: ~2500-2800 tokens
   - Documentation scanning: ~300-500 tokens
   - Response: ~400-800 tokens
 
-- **Teacher mode**: ~5500 tokens for session start (up from 4700)
-  - Context loading: ~4000 tokens
+- **Teacher mode** (`/session-start-teach`): ~4200-4500 tokens
+  - Context loading: ~2500-2800 tokens
   - Documentation scanning: ~300-500 tokens
   - Response: ~1000-1500 tokens
 
+**Token savings vs flag-based approach (v2.0)**:
+- Standard: **-1300 tokens** (each command only loads relevant instructions)
+- Teacher: **-1300 tokens** (no unused standard mode section)
+
 **Still well within budget** (target: <6000 tokens per session start)
 
-**Recommendation**: Use teacher mode selectively when learning is the priority. Once familiar with the codebase, switch back to standard mode for efficiency. Documentation is listed but not loaded, keeping token usage reasonable.
+**Recommendation**: Use teacher mode selectively when learning is the priority. Once familiar with the codebase, switch to standard mode for efficiency. Documentation is listed but not loaded, keeping token usage reasonable.
 
 ## Session Summary Format
 
@@ -586,25 +584,25 @@ For detailed information, see:
 ## Quick Tips
 
 1. **Use `/session-start` first** - Always load context before starting work
-2. **Enable teacher mode when learning** - Use `/session-start --teacher` for new codebases
+2. **Enable teacher mode when learning** - Use `/session-start-teach` for new codebases
 3. **Take checkpoint summaries** - For long sessions, document mid-session progress
 4. **Use `/session-end` at end** - Automatic summary creation and commit
 5. **Review summaries** - Check docs/sessions/ to understand project history
 6. **Reference previous sessions** - Build on what was learned before
-7. **Switch to standard mode when familiar** - Save tokens once you know the patterns
+7. **Switch to standard mode when familiar** - Use `/session-start` to save tokens once you know the patterns
 
 ## When to Use This Skill vs Slash Commands
 
 | Situation | Use | Reason |
 |-----------|-----|--------|
 | Starting a new session | `/session-start` | Automatic, optimal tokens |
-| Learning new codebase | `/session-start --teacher` | Educational context, explanations |
+| Learning new codebase | `/session-start-teach` | Educational context, explanations |
 | Ending session normally | `/session-end` | Automatic, creates commit |
 | Need to review context | This skill | "What did we work on?" |
 | Need to document mid-session | This skill | "Checkpoint summary..." |
 | Working in bursts | This skill | More flexible timing |
 | Want full automation | `/session-start` + `/session-end` | Fastest, most efficient |
-| Want to understand patterns | `/session-start --teacher` | Learn while loading context |
+| Want to understand patterns | `/session-start-teach` | Learn while loading context |
 
 ## Integration with Other Skills/Bundles
 

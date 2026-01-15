@@ -30,6 +30,11 @@
       "name": "api-design-bundle",
       "source": "./bundles/api-design-bundle",
       "description": "Comprehensive API design expertise for REST and GraphQL: resource modeling, schema design, security, testing with Postman MCP integration, and production-grade API architecture"
+    },
+    {
+      "name": "game-jam-toolkit-bundle",
+      "source": "./bundles/game-jam-toolkit-bundle",
+      "description": "Complete game jam development partner for Unity 2D: validates starter scripts, guides modern architecture (Input System, async/await, DI, memory optimization), and generates production-ready features with @jam-architect, @feature-developer, @code-quality agents"
     }
   ]
 }

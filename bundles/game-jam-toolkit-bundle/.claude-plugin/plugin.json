@@ -1,0 +1,59 @@
+{
+  "name": "game-jam-toolkit-bundle",
+  "version": "1.0.0",
+  "description": "Complete game jam development partner for Unity 2D projects. Validates starter scripts, guides architecture using modern patterns (Input System, async/await, memory optimization, dependency injection), and generates production-ready features during jam time.",
+  "author": {
+    "name": "Thomas K.",
+    "email": "dev@gamedev.local"
+  },
+  "skills": [
+    "./skills/validate-starter-scripts",
+    "./skills/modern-patterns-audit",
+    "./skills/jam-prep-checklist",
+    "./skills/feature-architect",
+    "./skills/feature-generator",
+    "./skills/code-reviewer",
+    "./skills/integration-validator"
+  ],
+  "agents": [
+    {
+      "name": "jam-architect",
+      "description": "System design expert for game jam features. Takes feature requirements and produces architecture plans, class diagrams, integration points, and modern Unity patterns (Input System, async/await, dependency injection, pooling)."
+    },
+    {
+      "name": "feature-developer",
+      "description": "Writes complete, production-ready C# scripts for game features. Generates code that matches starter patterns, uses modern practices, handles Input System, async patterns, memory optimization, and integrates seamlessly with existing systems."
+    },
+    {
+      "name": "code-quality",
+      "description": "Code reviewer focused on jam-time quality. Catches memory leaks, Input System inconsistencies, improper async patterns, pooling issues, and architectural problems without blocking workflow."
+    }
+  ],
+  "commands": [
+    {
+      "name": "review-starters",
+      "description": "Run full validation on your 20 starter scripts. Checks code quality, best practices, integration health, and modern pattern adoption.",
+      "trigger": "/review-starters"
+    },
+    {
+      "name": "design-feature",
+      "description": "Design a new game feature. Provide feature description and get architecture plan, system design, class structure, and integration strategy.",
+      "trigger": "/design-feature"
+    },
+    {
+      "name": "generate-feature",
+      "description": "Generate complete C# scripts for a feature. Takes architecture from /design-feature and produces production-ready code matching your starter patterns.",
+      "trigger": "/generate-feature"
+    },
+    {
+      "name": "review-code",
+      "description": "Submit code for instant feedback. Checks against starter patterns, modern practices, memory safety, and architectural consistency.",
+      "trigger": "/review-code"
+    },
+    {
+      "name": "jam-status",
+      "description": "Quick health check of entire game jam project. Scans code quality, integration issues, best practice compliance, and readiness.",
+      "trigger": "/jam-status"
+    }
+  ]
+}

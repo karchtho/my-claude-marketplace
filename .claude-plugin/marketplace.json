@@ -35,6 +35,11 @@
       "name": "game-jam-toolkit-bundle",
       "source": "./bundles/game-jam-toolkit-bundle",
       "description": "Complete game jam development partner for Unity 2D: validates starter scripts, guides modern architecture (Input System, async/await, DI, memory optimization), and generates production-ready features with @jam-architect, @feature-developer, @code-quality agents"
+    },
+    {
+      "name": "express-backend-bundle",
+      "source": "./bundles/express-backend-bundle",
+      "description": "Production-ready Express.js backend development: fundamentals, middleware patterns (auth, validation, error handling), API design, database integration (PostgreSQL, MongoDB), authentication (JWT, OAuth), and testing strategies"
     }
   ]
 }

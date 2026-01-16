@@ -1,0 +1,17 @@
+{
+  "name": "express-backend-bundle",
+  "version": "1.0.0",
+  "description": "Production-ready Express.js backend development with middleware patterns, database integration, authentication, API design, and testing strategies. Master routing, middleware, error handling, security, database connections, and deployment patterns.",
+  "author": {
+    "name": "Claude Code Community",
+    "email": "skills@anthropic.com"
+  },
+  "skills": [
+    "./skills/express-fundamentals",
+    "./skills/middleware-patterns",
+    "./skills/api-design-patterns",
+    "./skills/database-integration",
+    "./skills/authentication-patterns",
+    "./skills/testing-patterns"
+  ]
+}

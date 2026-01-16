@@ -11,18 +11,5 @@
     "./skills/graphql-api-design",
     "./skills/api-architecture",
     "./skills/api-testing"
-  ],
-  "metadata": {
-    "tags": [
-      "api-design",
-      "rest",
-      "graphql",
-      "api-testing",
-      "postman",
-      "mcp",
-      "architecture",
-      "security"
-    ],
-    "category": "api-development"
-  }
+  ]
 }

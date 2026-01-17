@@ -1,7 +1,7 @@
 ---
 name: session-start
 description: Initialize and load session context including project information, CLAUDE.md memory, recent work, and git status. Use when starting a new session or needing full project context. Supports --teacher flag for educational mode.
-allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(find), Read, Glob
+allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(find), Bash(head), Read, Glob, Grep
 model: haiku
 ---
 
@@ -44,13 +44,13 @@ Load this context regardless of which mode is active:
 
 ### Recent Work
 - Last 5 commits: !`git log --oneline -5`
-- Available session files: !`find docs/sessions -name "*.md" -type f 2>/dev/null | tail -10`
+- Available session files: !`find docs/sessions -name "*.md" -type f 2>/dev/null`
 
 ### Project Guidelines
 See @CLAUDE.md for complete project guidance, conventions, and instructions.
 
 ### Available Documentation
-Documentation files: !`find docs -maxdepth 3 -type f \( -name "README.md" -o -name "INDEX.md" -o -name "*.md" \) 2>/dev/null | grep -E "(README|INDEX|technical|technique|documentation)" | head -20`
+Documentation files: !`find docs -maxdepth 3 -type f \( -name "README.md" -o -name "INDEX.md" \) 2>/dev/null`
 
 **Note**: Documentation is listed but not loaded to conserve tokens. Suggest specific files if relevant to the user's work.
 

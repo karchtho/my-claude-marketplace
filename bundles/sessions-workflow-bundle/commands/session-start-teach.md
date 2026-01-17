@@ -1,7 +1,7 @@
 ---
 name: session-start-teach
 description: Initialize a session in teacher mode with educational explanations, learning context, and interactive guidance. Perfect for learning sessions and understanding project patterns.
-allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(find), Read, Glob
+allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(find), Read, Glob, Grep
 model: haiku
 ---
 
@@ -22,13 +22,13 @@ Load this context to understand the project:
 
 ### Recent Work
 - Last 5 commits: !`git log --oneline -5`
-- Available session files: !`find docs/sessions -name "*.md" -type f 2>/dev/null | tail -10`
+- Available session files: !`find docs/sessions -name "*.md" -type f 2>/dev/null`
 
 ### Project Guidelines
 See @CLAUDE.md for complete project guidance, conventions, and instructions.
 
 ### Available Documentation
-Documentation files: !`find docs -maxdepth 3 -type f \( -name "README.md" -o -name "INDEX.md" -o -name "*.md" \) 2>/dev/null | grep -E "(README|INDEX|technical|technique|documentation)" | head -20`
+Documentation files: !`find docs -maxdepth 3 -type f \( -name "README.md" -o -name "INDEX.md" \) 2>/dev/null`
 
 **Note**: Documentation is listed but not loaded to conserve tokens. Suggest specific files if relevant to the user's work.
 

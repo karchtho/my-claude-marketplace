@@ -1,0 +1,30 @@
+{
+  "name": "game-jam-toolkit-bundle",
+  "version": "1.0.0",
+  "description": "Complete game jam development partner for Unity 2D projects. Validates starter scripts, guides architecture using modern patterns (Input System, async/await, memory optimization, dependency injection), and generates production-ready features during jam time.",
+  "author": {
+    "name": "Thomas K.",
+    "email": "dev@gamedev.local"
+  },
+  "skills": [
+    "./skills/validate-starter-scripts",
+    "./skills/modern-patterns-audit",
+    "./skills/jam-prep-checklist",
+    "./skills/feature-architect",
+    "./skills/feature-generator",
+    "./skills/code-reviewer",
+    "./skills/integration-validator"
+  ],
+  "commands": [
+    "./commands/review-starters.md",
+    "./commands/design-feature.md",
+    "./commands/generate-feature.md",
+    "./commands/review-code.md",
+    "./commands/jam-status.md"
+  ],
+  "agents": [
+    "./agents/jam-architect.md",
+    "./agents/feature-developer.md",
+    "./agents/code-quality.md"
+  ]
+}

@@ -40,6 +40,11 @@
       "name": "express-backend-bundle",
       "source": "./bundles/express-backend-bundle",
       "description": "Production-ready Express.js backend development: fundamentals, middleware patterns (auth, validation, error handling), API design, database integration (PostgreSQL, MongoDB), authentication (JWT, OAuth), and testing strategies"
+    },
+    {
+      "name": "jest-testing-bundle",
+      "source": "./bundles/jest-testing-bundle",
+      "description": "Comprehensive Jest testing toolkit: fundamentals, unit testing patterns, Express API integration testing, Prisma/PostgreSQL database testing, and mocking patterns"
     }
   ]
 }

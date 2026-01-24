@@ -1,0 +1,16 @@
+{
+  "name": "jest-testing-bundle",
+  "version": "1.0.0",
+  "description": "Comprehensive Jest testing toolkit for JavaScript/Node.js applications with Express, PostgreSQL, and Prisma patterns",
+  "author": {
+    "name": "karchtho",
+    "email": ""
+  },
+  "skills": [
+    "./skills/jest-fundamentals",
+    "./skills/unit-testing-patterns",
+    "./skills/integration-testing",
+    "./skills/database-testing",
+    "./skills/mocking-patterns"
+  ]
+}

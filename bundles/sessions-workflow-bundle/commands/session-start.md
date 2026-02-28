@@ -1,81 +1,86 @@
 ---
 name: session-start
 description: Initialize and load session context including project information, CLAUDE.md memory, recent work, and git status. Use when starting a new session or needing full project context. Provides brief, efficient summaries.
-allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(find), Read, Glob
+allowed-tools: Bash(pwd), Bash(git branch), Bash(git status), Bash(git log), Bash(ls), Read, Glob
 model: haiku
 ---
 
 # /session-start
 
-Initialize a new Claude Code session with full context loading. Provides brief, efficient summaries focused on actionable information.
-
-For educational mode with detailed explanations and learning context, use `/session-start-teach` instead.
+Initialize a new Claude Code session with full context loading.
 
 ---
 
 ## Context Loading
 
-Load this context to understand the project:
-
 ### Project Information
 - Working directory: !`pwd`
 - Current branch: !`git branch --show-current`
 - Git status: !`git status --short`
+- Recent commits: !`git log --oneline -5`
 
-### Recent Work
-- Last 5 commits: !`git log --oneline -5`
-- Available session files: !`find docs/sessions -name "*.md" -type f 2>/dev/null`
+### Memory Directory
+- Memory contents: !`ls ~/.claude/projects/$(pwd | sed 's|/|-|g')/memory/ 2>/dev/null || echo "(no memory directory yet)"`
 
 ### Project Guidelines
-See @CLAUDE.md for complete project guidance, conventions, and instructions.
-
-### Available Documentation
-Documentation files: !`find docs -maxdepth 3 -type f \( -name "README.md" -o -name "INDEX.md" \) 2>/dev/null`
-
-**Note**: Documentation is listed but not loaded to conserve tokens. Suggest specific files if relevant to the user's work.
+See @CLAUDE.md if it exists.
 
 ---
 
 ## Instructions
 
-### Your Task
+### Step 1: CLAUDE.md Check
 
-1. **Load project guidelines** - Review @CLAUDE.md to understand project structure, conventions, and any special instructions
-2. **Check recent work** - Look at the available session files and understand what was recently accomplished
-3. **Assess current state** - Note the git branch, any uncommitted changes, and overall project health
-4. **Review available docs** - Note if documentation is available (but don't load it)
-5. **Summarize briefly** - Provide a concise summary (max 300 words) of key information
-6. **Ask what's next** - Simple question: "What would you like to work on today?"
+**If CLAUDE.md exists:**
+- Read it to understand project structure, conventions, constraints
+- Look for a `## Session Settings` section
+- Check if `Teacher Mode` is set to `enabled` or `disabled`
+- Extract any key constraints (e.g., package manager, commit style)
 
-### Response Format
+**If CLAUDE.md is missing:**
+- Warn: "No CLAUDE.md found. Run `/init-project` to scaffold one with project conventions and session settings."
+- Continue with defaults: teacher mode off, no project-specific constraints
 
-Provide a brief session summary:
+### Step 2: Load Memory
 
+Compute memory dir: `~/.claude/projects/$(pwd | sed 's|/|-|g')/memory/`
+
+If the memory directory exists:
+- Read `sessions.md` → surface the last 5-10 session entries
+- Read `MEMORY.md` → stable patterns and constraints
+- Pull what's relevant to the current branch/git state
+
+If the memory directory doesn't exist: note that this is the first session.
+
+### Step 3: Respond in the correct mode
+
+**Teacher Mode DISABLED (default):**
+
+Respond ≤200 words in this format:
 ```
 📚 Session Context Loaded
 
-✓ Current branch: [branch name]
-✓ Git status: [uncommitted changes summary]
-✓ Documentation: [number] files available in docs/
-✓ Project guidelines: [key constraints from CLAUDE.md]
-✓ Previous work: [summary from latest session file, if any]
+✓ Branch: [branch name]
+✓ Status: [uncommitted changes, or "clean"]
+✓ Recent work: [1-2 sentence summary from memory, or "first session"]
+✓ Key constraints: [from CLAUDE.md, or "none detected — run /init-project"]
 
 What would you like to work on today?
 ```
 
-### Guidelines
-- Keep response under 300 words
-- Be concise and actionable
-- Focus on information that affects today's work
-- Mention documentation availability but don't describe contents
-- If documentation is relevant, suggest a specific file (e.g., "I found docs/technical/README.md which might be helpful")
+**Teacher Mode ENABLED** (only when CLAUDE.md has `Teacher Mode: enabled`):
+
+Respond 400-600 words:
+- Narrate context loading: explain what each piece of information means
+- Summarize previous work with explanation of decisions made
+- Propose 2-3 paths forward with trade-offs
+- Invite the user to choose: "What would you like to explore today?"
 
 ---
 
 ## Notes
 
-- Missing files (CLAUDE.md, session history, docs/) should not block session start - handle gracefully
-- Always gracefully handle missing directories or files
-- Keep summary brief (~300 words max) to save tokens
-- Focus on critical information that affects today's work
-- For educational mode with detailed explanations, use `/session-start-teach` instead
+- CLAUDE.md absence is a warning, not an error — always continue
+- Memory absence is normal on first session — say so and move on
+- Never fail silently: if something is missing, name it
+- Keep standard mode brief — the user wants to get to work

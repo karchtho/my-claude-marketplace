@@ -19,9 +19,6 @@ Initialize a new Claude Code session with full context loading.
 - Git status: !`git status --short`
 - Recent commits: !`git log --oneline -5`
 
-### Memory Directory
-- Memory contents: !`ls ~/.claude/projects/$(pwd | sed 's|/|-|g')/memory/ 2>/dev/null || echo "(no memory directory yet)"`
-
 ### Project Guidelines
 See @CLAUDE.md if it exists.
 

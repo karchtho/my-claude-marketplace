@@ -538,9 +538,4 @@ Run with: `locust -f locustfile.py -u 100 -r 10`
 - **graphql-api-design skill** - For GraphQL query patterns to test
 - **api-architecture skill** - For security and monitoring strategies
 
-## Additional Resources
-
-For detailed guidance, see:
-- `references/postman-mcp-setup.md` - Complete Postman MCP setup
-- `references/testing-strategies.md` - Testing patterns and organization
-- `references/contract-testing.md` - OpenAPI and Pact testing
+> Reference files for this skill are planned for a future release.

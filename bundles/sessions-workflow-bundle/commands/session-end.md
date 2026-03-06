@@ -12,7 +12,7 @@ Save session to memory, then commit all changes.
 ## Context
 
 - Working directory: !`pwd`
-- Changed files: !`git diff --name-status HEAD 2>/dev/null | head -10`
+- Changed files: !`git diff --name-status HEAD`
 - Current branch: !`git branch --show-current 2>/dev/null || echo "main"`
 - Recent commits: !`git log --format='%s' -5 2>/dev/null || echo "No git history"`
 

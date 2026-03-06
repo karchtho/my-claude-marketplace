@@ -1,7 +1,7 @@
 ---
 name: init-project
 description: Scaffold a CLAUDE.md for the current project by analyzing its stack, conventions, and structure. Run once per project. Writes a CLAUDE.md with session settings including teacher mode.
-allowed-tools: Bash(pwd), Bash(ls), Bash(git log), Bash(git branch), Bash(cat), Read, Write, Glob
+allowed-tools: Bash(pwd), Bash(ls), Bash(git log), Bash(git branch), Read, Write, Glob
 model: haiku
 ---
 
@@ -15,12 +15,12 @@ Scaffold a CLAUDE.md for the current project. Run this once — it analyzes your
 
 - Working directory: !`pwd`
 - Root files: !`ls -1`
-- Git log (commit style): !`git log --oneline -10 2>/dev/null || echo "No git history"`
-- Git branches: !`git branch -a --format='%(refname:short)' 2>/dev/null | head -10 || echo "No branches"`
-- README (first 50 lines): !`head -50 README.md 2>/dev/null || echo "(no README)"`
-- package.json: !`cat package.json 2>/dev/null | head -30 || echo "(no package.json)"`
-- pyproject.toml: !`cat pyproject.toml 2>/dev/null | head -20 || echo "(no pyproject.toml)"`
-- Cargo.toml: !`cat Cargo.toml 2>/dev/null | head -20 || echo "(no Cargo.toml)"`
+- Git log (commit style): !`git log --oneline -10`
+- Git branches: !`git branch -a`
+- README: Read `README.md` if it exists
+- package.json: Read `package.json` if it exists
+- pyproject.toml: Read `pyproject.toml` if it exists
+- Cargo.toml: Read `Cargo.toml` if it exists
 
 ---
 

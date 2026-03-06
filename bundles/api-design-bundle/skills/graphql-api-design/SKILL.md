@@ -661,9 +661,4 @@ type User {
 - **api-architecture skill** - For security, versioning, monitoring
 - **api-testing skill** - For testing GraphQL queries and mutations
 
-## Additional Resources
-
-For detailed guidance, see:
-- `references/schema-patterns.md` - Complete schema design patterns
-- `references/resolver-patterns.md` - Resolver and DataLoader patterns
-- `references/subscriptions-guide.md` - Real-time subscription patterns
+> Reference files for this skill are planned for a future release.

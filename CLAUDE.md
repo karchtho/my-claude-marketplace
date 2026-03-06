@@ -113,3 +113,9 @@ The bundle-maker skill enforces gathering ALL required information upfront befor
 
 1. **react-frontend-bundle** - React patterns, hooks, state management (Zustand, Redux, Jotai), UI/UX design, accessibility
 2. **dev-toolkit-bundle** - Bundle creation workflow with automation scripts and working examples
+3. **api-design-bundle** - REST API design, GraphQL schemas, API architecture, API testing patterns
+4. **express-backend-bundle** - Express.js setup, middleware patterns, database integration, authentication, testing
+5. **infra-bundle** - Docker, Nginx, GitHub Actions CI/CD, environment variables, bash scripting
+6. **sessions-workflow-bundle** - Session management commands: /session-start, /session-end, /init-project
+7. **jest-testing-bundle** - Jest setup, unit testing, integration testing, database testing, mocking
+8. **game-jam-toolkit-bundle** - Unity game jam toolkit: feature design, code generation, review, validation

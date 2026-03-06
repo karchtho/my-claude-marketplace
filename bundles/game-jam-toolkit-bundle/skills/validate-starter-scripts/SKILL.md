@@ -1,6 +1,6 @@
 ---
 name: validate-starter-scripts
-description: validation audit quality check startup initialization integrity
+description: Validate and audit game jam starter scripts for quality, integrity, and correct initialization. Use when running pre-jam checks, verifying startup scripts work, or auditing script quality before a game jam begins.
 ---
 
 # Validate Starter Scripts Skill

@@ -1,6 +1,6 @@
 ---
 name: feature-architect
-description: architecture design system planning structure pattern integration features
+description: Design game feature architecture before writing code. Use when planning a new feature system, deciding on component structure, or mapping out how a feature integrates with existing systems.
 ---
 
 # Feature Architect Skill

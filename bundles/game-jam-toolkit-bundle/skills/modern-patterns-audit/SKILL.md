@@ -1,6 +1,6 @@
 ---
 name: modern-patterns-audit
-description: modern practices Input System async await dependency injection pooling optimization
+description: Audit Unity scripts for modern development practices. Use when reviewing code for outdated patterns, checking Input System usage, async/await adoption, dependency injection, or object pooling opportunities.
 ---
 
 # Modern Patterns Audit Skill

@@ -476,9 +476,4 @@ async def get_user(
 - **api-architecture skill** - For versioning strategies, security, and monitoring
 - **api-testing skill** - For testing REST endpoints and validation
 
-## Additional Resources
-
-For detailed guidance, see:
-- `references/http-methods-guide.md` - Comprehensive HTTP method semantics
-- `references/pagination-patterns.md` - Comparison of pagination approaches
-- `references/rest-error-handling.md` - Error handling standards
+> Reference files for this skill are planned for a future release.

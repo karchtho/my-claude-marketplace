@@ -5,12 +5,7 @@ Complete guide to your Claude Skills Marketplace.
 ## 📚 Documentation Files
 
 ### Getting Started
-1. **[QUICK_START.md](../QUICK_START.md)** - 3-command activation guide
-   - How to activate marketplace
-   - How to install React bundle
-   - How to test it's working
-
-2. **[README.md](../README.md)** - Complete marketplace documentation
+1. **[README.md](../README.md)** - Complete marketplace documentation
    - Available bundles
    - Context switching workflow
    - Adding more bundles
@@ -43,7 +38,7 @@ Complete guide to your Claude Skills Marketplace.
 ### I Want To...
 
 #### Start Using the Marketplace Now
-→ Read [QUICK_START.md](../QUICK_START.md)
+→ Read [README.md](../README.md)
 
 #### Understand the Full System
 → Read [README.md](../README.md)
@@ -97,8 +92,7 @@ my-claude-skills/
 │               ├── scripts/           # Automation scripts
 │               └── examples/          # Working bundle templates
 │
-├── README.md                           # Main documentation
-└── QUICK_START.md                      # 3-command activation
+└── README.md                           # Main documentation
 ```
 
 ## 🚀 Coming Back After a Break?

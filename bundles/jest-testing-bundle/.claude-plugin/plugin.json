@@ -4,7 +4,7 @@
   "description": "Comprehensive Jest testing toolkit for JavaScript/Node.js applications with Express, PostgreSQL, and Prisma patterns",
   "author": {
     "name": "karchtho",
-    "email": ""
+    "email": "kitadevturtle@gmail.com"
   },
   "skills": [
     "./skills/jest-fundamentals",

@@ -1,3 +1,7 @@
+> **ARCHIVED** — This document was written when the marketplace had 1 bundle. It is kept for historical reference only. See CLAUDE.md for the current bundle list.
+
+---
+
 # Next Steps for My Claude Skills Marketplace
 
 This document outlines the roadmap for expanding your marketplace with new bundles and integrations.

@@ -58,8 +58,33 @@ Use what the repo already uses.
 
 ### Step 3: Stage and Commit
 
-1. Stage all changes:
+**⚠️ IMPORTANT — Atomic Commits**
+
+Each commit should represent **one logical unit of work**. Do NOT commit all changes together if they touch unrelated features or concerns.
+
+**Before staging:**
+- Review changed files: `git status`
+- Group related changes: one commit per feature, fix, or refactor
+- Use `git add [file]` to stage specific files, not `git add .` if changes are mixed
+
+**Conventional commits are required:**
+- Format: `type(scope): description`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`
+- Examples:
+  - `fix(auth): resolve session timeout race condition`
+  - `feat(api): add user pagination to endpoints`
+  - `docs: update README with setup instructions`
+
+This repo uses conventional commits — follow the pattern from recent commits above.
+
+---
+
+1. Stage related changes (atomically):
    ```bash
+   # Option A: Stage specific files for one logical commit
+   git add [file1] [file2] ...
+
+   # Option B: Only use if all changes are one logical unit
    git add .
    ```
 

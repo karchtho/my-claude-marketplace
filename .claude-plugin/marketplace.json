@@ -45,6 +45,11 @@
       "name": "jest-testing-bundle",
       "source": "./bundles/jest-testing-bundle",
       "description": "Comprehensive Jest testing toolkit: fundamentals, unit testing patterns, Express API integration testing, Prisma/PostgreSQL database testing, and mocking patterns"
+    },
+    {
+      "name": "qml-pyside6-bundle",
+      "source": "./bundles/qml-pyside6-bundle",
+      "description": "QML + PySide6 development expertise for Thomas's widget-based desktop dashboard: component patterns, theme system, WidgetShell/WidgetContent architecture, Python bridge"
     }
   ]
 }

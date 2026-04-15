@@ -1,0 +1,12 @@
+{
+  "name": "qml-pyside6-bundle",
+  "version": "1.0.0",
+  "description": "QML + PySide6 development expertise for Thomas's widget-based desktop dashboard",
+  "author": {
+    "name": "karchto",
+    "email": "kitadevturtle@gmail.com"
+  },
+  "skills": [
+    "./skills/thomas-qml-dashboard"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "shipit-doc-system-bundle",
+  "version": "1.0.0",
+  "description": "QMS documentation skill for Ship It Green infrastructure: create, classify, and validate SOPs, Work Instructions, IQ/OQ qualifications, and reference catalogues.",
+  "author": {
+    "name": "Thomas K.",
+    "email": "kitadevturtle@gmail.com"
+  },
+  "skills": [
+    "./skills/shipit-doc-system"
+  ]
+}
